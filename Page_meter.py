@@ -27,7 +27,7 @@ class web_UI(object):
 
 
     #访问地址
-    cm_url = "https://srf.test.com/CMWeb/login.aspx?aspxerrorpath=/"
+    cm_url = "https://mbh.sobeycloud.net/CM/#/login"
 
     #cm登录
     cm_xpath_login = "login-button"
