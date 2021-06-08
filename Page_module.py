@@ -41,16 +41,32 @@ class Mail:
         page_web.by_id(self,"pwd").send_keys(Page_meter.web_UI.add_pwd)
         page_web.by_id(self,Page_meter.web_UI.cm_xpath_login).click()
         time.sleep(3)
-        # print("web ingest login")
-        page_web.by_xpath(self,Page_meter.web_UI.xpath_web_ingest_login).click()
 
-        #tab页面切换
-        search = self.driver.window_handles
-        self.driver.switch_to.window(search[-1])
-        search1 = self.driver.current_window_handle
-        print(search1)
-        #点击居中
-        page_web.by_xpath(self, Page_meter.web_UI.xpath_now_lie).click()
+
+        # print("web ingest login")
+        try:
+            self.driver.find_element_by_xpath(Page_meter.web_UI.xpath_new_job).is_displayed()
+        except:
+            assert print('登录失败')
+        else:
+            self.driver.find_element_by_xpath(Page_meter.web_UI.xpath_web_ingest_login).click()
+            search = self.driver.window_handles
+            '''点击居中'''
+            time.sleep(1)
+            self.driver.find_element_by_xpath(Page_meter.web_UI.xpath_now_lie).click()
+            self.driver.switch_to.window(search[-1])
+            search1 = self.driver.current_window_handle
+            print(search1)
+
+
+
+        # #tab页面切换
+        # search = self.driver.window_handles
+        # self.driver.switch_to.window(search[-1])
+        # search1 = self.driver.current_window_handle
+        # print(search1)
+        # #点击居中
+        # page_web.by_xpath(self, Page_meter.web_UI.xpath_now_lie).click()
 
     '''sso模式下登录webingest'''
     def SSO_login_web_ingest(self):
@@ -65,13 +81,23 @@ class Mail:
             '/html/body/div[1]/div/div[2]/div[2]/div[2]/div[2]/div[2]/div/form/input[3]').click()
 
         #web ingest登录
-        self.driver.find_element_by_xph(Page_meter.web_UI.xpath_web_ingest_login).click()
-        search = self.driver.window_handles
-        '''点击居中'''
-        self.driver.find_element_by_xpath(Page_meter.web_UI.xpath_now_lie).click()
-        self.driver.switch_to.window(search[-1])
-        search1 = self.driver.current_window_handle
-        print(search1)
+
+        a = self.driver.find_element_by_id("aa").is_displayed()
+        if a:
+            self.driver.find_element_by_xph(Page_meter.web_UI.xpath_web_ingest_login).click()
+            search = self.driver.window_handles
+            '''点击居中'''
+            self.driver.find_element_by_xpath(Page_meter.web_UI.xpath_now_lie).click()
+            self.driver.switch_to.window(search[-1])
+            search1 = self.driver.current_window_handle
+            print(search1)
+        else:
+            assert print('登录失败')
+
+
+
+
+
 
     """打开new job"""
     def webingest_new_filingjob(self):
@@ -380,6 +406,7 @@ class Mail:
         print('创建后取出', data_list)
         print('未开始采集元数据比较：', Page_meter.web_UI.Judgment_02(data_list, add_data_list))
         assert Page_meter.web_UI.add_title in data_title
+
     '''任务开始采集后，元数据批量比较'''
     def filingjob_start_batch_click(self):
         # 创建任务时输入的元数据

@@ -31,7 +31,7 @@ class web_UI(object):
 
     #cm登录
     cm_xpath_login = "login-button"
-    xpath_web_ingest_login ='/html/body/div[2]/div[5]/div[7]/div[1]/input[4]'
+    xpath_web_ingest_login ='//*[@id="stage_wrapper"]/div[1]/input[4]'
 
     # 多语言列表
     language_list = ["0Ky është vetëm një test i cil i ka veçoritë e veta! Shpresoj se do të jetë në rregull ",
